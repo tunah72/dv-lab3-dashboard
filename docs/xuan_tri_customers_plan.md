@@ -63,18 +63,18 @@ Xuân Trí thực hiện kéo thả các visual sau vào đúng khu vực quy đ
 ### 4.1. Thiết lập 4 Thẻ KPI (KPI Cards)
 Đặt ngang hàng ở vùng KPI row (theo thứ tự từ trái qua phải):
 
-| Số thứ tự | Tên Visual (đổi trong Selection Pane) | Measure sử dụng | Nhãn hiển thị tiếng Việt (Label) | Định dạng hiển thị |
-| :---: | | | | |
+| Số thứ tự | Tên Visual (Selection Pane) | Measure sử dụng | Nhãn hiển thị tiếng Việt (Label) | Định dạng hiển thị |
+| :---: | :--- | :--- | :--- | :--- |
 | 1 | `KPI_Customers_TotalCustomers` | `Total Customers` | Tổng khách hàng | Số nguyên (`#,0`) |
 | 2 | `KPI_Customers_RevenuePerCustomer` | `Revenue per Customer` | Doanh thu trên mỗi khách hàng | Tiền tệ (`$#,0.00`) |
 | 3 | `KPI_Customers_TotalOrders` | `Total Orders` | Tổng đơn hàng | Số nguyên (`#,0`) |
 | 4 | `KPI_Customers_ItemsPerOrder` | `Items per Order` | Số dòng hàng mỗi đơn | Số thập phân (`#,0.00`) |
 
 ### 4.2. Thiết lập các Bộ Lọc (Slicers)
-Đặt các slicer này tại khu vực Filter area (thường ở phía trên cùng hoặc bên góc phải):
+Đặt các slicer này xếp theo chiều dọc nằm trọn bên trong khung **FILTERS** màu xanh đậm ở thanh Sidebar bên trái (đại diện bởi container `filter-container` trên layout background):
 
-| Tên Visual (đổi trong Selection Pane) | Cột dữ liệu (Field) | Tiêu đề hiển thị | Kiểu hiển thị |
-| | | | |
+| Tên Visual (Selection Pane) | Cột dữ liệu (Field) | Tiêu đề hiển thị | Kiểu hiển thị |
+| :--- | :--- | :--- | :--- |
 | `SL_Customers_Year` | `Date[Year]` | Năm | Dropdown hoặc Tile ngắn |
 | `SL_Customers_Month` | `Date[Year Month]` | Tháng | Dropdown |
 | `SL_Customers_Segment` | `customers[Segment]` | Phân khúc khách hàng | Dropdown hoặc List |
@@ -83,9 +83,10 @@ Xuân Trí thực hiện kéo thả các visual sau vào đúng khu vực quy đ
 ---
 
 ## 5. Giai Đoạn 4: Thiết Lập Hệ Thống Biểu Đồ Chính
-Trang khách hàng sẽ có tối đa 4 biểu đồ chính để phân tích toàn diện hành vi phân khúc và địa lý:
+Trang khách hàng sẽ có tối đa 4 biểu đồ chính được phân bổ vào các container quy định sẵn trên background [background_tab2.png](file:///c:/Studying/Data%20Visualization/dv-lab3-dashboard/design/background_tab2.png) để phân tích toàn diện hành vi phân khúc và địa lý:
 
 ### Chart 1: Phân tích doanh thu theo Phân khúc
+*   **Container gán trên background**: `supporting-chart-bottom` (Khung ngang dưới bên trái, X: 15.9%, Y: 73.3%, W: 36.6%, H: 22.8%)
 *   **Tên visual nội bộ**: `CH_Customers_RevenueBySegment`
 *   **Tiêu đề hiển thị (dạng câu hỏi)**: **Phân khúc khách hàng nào tạo ra nhiều doanh thu nhất?**
 *   **Loại biểu đồ**: Bar chart (nằm ngang)
@@ -96,6 +97,7 @@ Trang khách hàng sẽ có tối đa 4 biểu đồ chính để phân tích to
 *   **Mục tiêu phân tích**: Xác định phân khúc đóng góp doanh thu cốt lõi của doanh nghiệp.
 
 ### Chart 2: Phân tích doanh thu theo Địa lý
+*   **Container gán trên background**: `supporting-chart-right` (Khung dọc bên phải, X: 69.8%, Y: 31.7%, W: 28.0%, H: 38.3%)
 *   **Tên visual nội bộ**: `CH_Customers_RevenueByCity`
 *   **Tiêu đề hiển thị (dạng câu hỏi)**: **Thành phố khách hàng nào đóng góp doanh thu nổi bật nhất?**
 *   **Loại biểu đồ**: Bar chart (nằm ngang) hoặc Map (nếu hiển thị tốt, không gây rối mắt)
@@ -106,6 +108,7 @@ Trang khách hàng sẽ có tối đa 4 biểu đồ chính để phân tích to
 *   **Mục tiêu phân tích**: Tìm các thành phố trọng điểm có lượng khách hàng hoặc mức chi tiêu lớn.
 
 ### Chart 3: Xu hướng doanh thu phân khúc theo thời gian
+*   **Container gán trên background**: `main-chart` (Khung lớn ở giữa bên trái, X: 15.9%, Y: 31.7%, W: 52.3%, H: 38.3%)
 *   **Tên visual nội bộ**: `CH_Customers_SegmentRevenueTrend`
 *   **Tiêu đề hiển thị (dạng câu hỏi)**: **Doanh thu theo phân khúc thay đổi như thế nào theo thời gian?**
 *   **Loại biểu đồ**: Line chart
@@ -117,6 +120,7 @@ Trang khách hàng sẽ có tối đa 4 biểu đồ chính để phân tích to
 *   **Mục tiêu phân tích**: So sánh sự phát triển và tính ổn định của các phân khúc qua từng tháng.
 
 ### Chart 4: Bảng so sánh chất lượng phân khúc
+*   **Container gán trên background**: `detail-table` (Khung bảng dưới bên phải, X: 54.1%, Y: 73.3%, W: 43.8%, H: 22.8%)
 *   **Tên visual nội bộ**: `CH_Customers_SegmentMatrix`
 *   **Tiêu đề hiển thị (dạng câu hỏi)**: **Phân khúc nào có giá trị trung bình trên mỗi khách hàng cao nhất?**
 *   **Loại biểu đồ**: Matrix hoặc Table
