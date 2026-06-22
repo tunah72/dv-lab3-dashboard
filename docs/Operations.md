@@ -90,24 +90,18 @@ Mục đích: theo dõi rủi ro giao hàng trễ theo thời gian.
 
 ### Chart 4
 
-Title: **Hiệu suất vận hành theo thành phố khác nhau ra sao?**
+Title: **Quy mô nhân sự và doanh thu các thành phố ra sao?**
 
-Visual: Matrix hoặc Table
+Visual: Lollipop Chart (Deneb / Vega-Lite)
 
 | Bucket | Field/Measure |
 |---|---|
-| Rows | `stores[city]` |
-| Values | `Total Revenue`, `Total Orders`, `Shipment Count`, `Late Shipment Rate`, `Delivered Shipment Rate`, `Total Employees`, `Average Salary` |
+| Y-axis | `stores[city]` |
+| X-axis (Độ dài) | `Total Employees` |
+| Point Size (Độ lớn) | `Total Revenue` |
+| Tooltip | `Total Orders`, `Average Salary`, `Late Shipment Rate` |
 
-Mục đích: so sánh hiệu suất vận hành giữa các thành phố/cửa hàng.
-
-Chart thay thế:
-
-- Title: **Thành phố nào có tỷ lệ giao hàng trễ cao nhất?**
-- Visual: Bar chart
-- Y-axis: `stores[city]`
-- X-axis: `Late Shipment Rate`
-- Tooltip: `Late Shipments`, `Shipment Count`
+Mục đích: So sánh quy mô vận hành của các thành phố.
 
 ## 6. Filters / Slicers
 
