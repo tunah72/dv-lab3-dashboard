@@ -1,0 +1,62 @@
+table Date
+	lineageTag: 41b3741b-7785-4603-bec3-90cb1e8e5f91
+	dataCategory: Time
+
+	column Date
+		isUnique
+		lineageTag: fa09383a-31b5-4f31-82e9-2d22abbc6213
+		isNameInferred
+		sourceColumn: [Date]
+
+	column Year
+		lineageTag: 4faa99a8-f703-4620-8fc0-eed073daf63b
+		isNameInferred
+		sourceColumn: [Year]
+
+	column Quarter
+		lineageTag: 3aa58d6e-b06c-4288-97c3-0241a2fb978f
+		isNameInferred
+		sourceColumn: [Quarter]
+
+	column 'Month Number'
+		lineageTag: 8d9e7819-dafb-41bb-9938-9da17af69b64
+		isNameInferred
+		sourceColumn: [Month Number]
+
+	column Month
+		lineageTag: c255cb4d-aabf-4074-a464-93ad1a24becc
+		isNameInferred
+		sourceColumn: [Month]
+
+	column 'Year Month'
+		lineageTag: 9b974274-f261-423d-a97f-7986cbb3552a
+		isNameInferred
+		sourceColumn: [Year Month]
+
+	column 'Weekday Number'
+		lineageTag: a06bd961-cb35-4409-90f0-1fd27d2eca35
+		isNameInferred
+		sourceColumn: [Weekday Number]
+
+	column Weekday
+		lineageTag: 6e3a6198-9306-4c3d-a2af-dbef690fc18e
+		isNameInferred
+		sourceColumn: [Weekday]
+
+	partition Date = calculated
+		mode: import
+		source =
+				VAR MinOrderDate = MIN ( 'orders'[order_date] )
+				VAR MaxOrderDate = MAX ( 'orders'[order_date] )
+				RETURN
+				ADDCOLUMNS (
+				    CALENDAR ( MinOrderDate, MaxOrderDate ),
+				    "Year", YEAR ( [Date] ),
+				    "Quarter", "Q" & FORMAT ( [Date], "Q" ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month", FORMAT ( [Date], "MMM" ),
+				    "Year Month", FORMAT ( [Date], "YYYY-MM" ),
+				    "Weekday Number", WEEKDAY ( [Date], 2 ),
+				    "Weekday", FORMAT ( [Date], "DDD" )
+				)
+

@@ -1,0 +1,48 @@
+relationship orders_order_date_Date_Date
+	fromColumn: orders.order_date
+	toColumn: Date.Date
+
+relationship orders_customer_id_customers_customer_id
+	fromColumn: orders.customer_id
+	toColumn: customers.customer_id
+
+relationship orders_store_id_stores_store_id
+	fromColumn: orders.store_id
+	toColumn: stores.store_id
+
+relationship orders_promotion_id_promotions_promotion_id
+	fromColumn: orders.promotion_id
+	toColumn: promotions.promotion_id
+
+relationship order_items_order_id_orders_order_id
+	fromColumn: order_items.order_id
+	toColumn: orders.order_id
+
+relationship order_items_product_id_products_product_id
+	fromColumn: order_items.product_id
+	toColumn: products.product_id
+
+relationship products_category_id_categories_category_id
+	fromColumn: products.category_id
+	toColumn: categories.category_id
+
+relationship products_supplier_id_suppliers_supplier_id
+	fromColumn: products.supplier_id
+	toColumn: suppliers.supplier_id
+
+relationship payments_order_id_orders_order_id
+	fromColumn: payments.order_id
+	toColumn: orders.order_id
+
+relationship returns_order_item_id_order_items_order_item_id
+	fromColumn: returns.order_item_id
+	toColumn: order_items.order_item_id
+
+relationship shipments_order_id_orders_order_id
+	fromColumn: shipments.order_id
+	toColumn: orders.order_id
+
+relationship employees_store_id_stores_store_id
+	fromColumn: employees.store_id
+	toColumn: stores.store_id
+

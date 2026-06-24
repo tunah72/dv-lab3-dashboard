@@ -1,0 +1,177 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+    "name":  "CH_SalesTrend_BottomLeft",
+    "position":  {
+                     "x":  204,
+                     "y":  528,
+                     "z":  18,
+                     "height":  165,
+                     "width":  469,
+                     "tabOrder":  18
+                 },
+    "visual":  {
+                   "visualType":  "ribbonChart",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Category":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Column":  {
+                                                                                                                          "Expression":  {
+                                                                                                                                             "SourceRef":  {
+                                                                                                                                                               "Entity":  "Date"
+                                                                                                                                                           }
+                                                                                                                                         },
+                                                                                                                          "Property":  "Year"
+                                                                                                                      }
+                                                                                                       },
+                                                                                             "queryRef":  "Date.Year",
+                                                                                             "nativeQueryRef":  "Year",
+                                                                                             "active":  true
+                                                                                         }
+                                                                                     ]
+                                                                 },
+                                                    "Y":  {
+                                                              "projections":  [
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Total Revenue"
+                                                                                                                }
+                                                                                                },
+                                                                                      "queryRef":  "_Measures.Total Revenue",
+                                                                                      "nativeQueryRef":  "Total Revenue"
+                                                                                  }
+                                                                              ]
+                                                          },
+                                                    "Legend":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "customers"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Segment"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "queryRef":  "customers.Segment",
+                                                                                           "nativeQueryRef":  "Segment",
+                                                                                           "active":  true
+                                                                                       }
+                                                                                   ]
+                                                               },
+                                                    "Tooltips":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Measure":  {
+                                                                                                                           "Expression":  {
+                                                                                                                                              "SourceRef":  {
+                                                                                                                                                                "Entity":  "_Measures"
+                                                                                                                                                            }
+                                                                                                                                          },
+                                                                                                                           "Property":  "Total Revenue"
+                                                                                                                       }
+                                                                                                       },
+                                                                                             "queryRef":  "_Measures.Total Revenue",
+                                                                                             "nativeQueryRef":  "Total Revenue"
+                                                                                         },
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Measure":  {
+                                                                                                                           "Expression":  {
+                                                                                                                                              "SourceRef":  {
+                                                                                                                                                                "Entity":  "_Measures"
+                                                                                                                                                            }
+                                                                                                                                          },
+                                                                                                                           "Property":  "Revenue per Customer"
+                                                                                                                       }
+                                                                                                       },
+                                                                                             "queryRef":  "_Measures.Revenue per Customer",
+                                                                                             "nativeQueryRef":  "Revenue per Customer"
+                                                                                         },
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Measure":  {
+                                                                                                                           "Expression":  {
+                                                                                                                                              "SourceRef":  {
+                                                                                                                                                                "Entity":  "_Measures"
+                                                                                                                                                            }
+                                                                                                                                          },
+                                                                                                                           "Property":  "Total Customers"
+                                                                                                                       }
+                                                                                                       },
+                                                                                             "queryRef":  "_Measures.Total Customers",
+                                                                                             "nativeQueryRef":  "Total Customers"
+                                                                                         },
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Measure":  {
+                                                                                                                           "Expression":  {
+                                                                                                                                              "SourceRef":  {
+                                                                                                                                                                "Entity":  "_Measures"
+                                                                                                                                                            }
+                                                                                                                                          },
+                                                                                                                           "Property":  "Total Orders"
+                                                                                                                       }
+                                                                                                       },
+                                                                                             "queryRef":  "_Measures.Total Orders",
+                                                                                             "nativeQueryRef":  "Total Orders"
+                                                                                         }
+                                                                                     ]
+                                                                 }
+                                                }
+                             },
+                   "drillFilterOtherVisuals":  true,
+                   "visualContainerObjects":  {
+                                                  "border":  [
+                                                                 {
+                                                                     "properties":  {
+                                                                                        "show":  {
+                                                                                                     "expr":  {
+                                                                                                                  "Literal":  {
+                                                                                                                                  "Value":  "false"
+                                                                                                                              }
+                                                                                                              }
+                                                                                                 }
+                                                                                    }
+                                                                 }
+                                                             ],
+                                                  "background":  [
+                                                                     {
+                                                                         "properties":  {
+                                                                                            "show":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "false"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                        }
+                                                                     }
+                                                                 ],
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Segment Ranking Over Time\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ]
+                                              }
+               }
+}
