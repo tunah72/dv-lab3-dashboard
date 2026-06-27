@@ -34,3 +34,6 @@ wheels/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Outputs
+outputs/
