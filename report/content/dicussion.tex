@@ -1,5 +1,24 @@
 %================================================
-% 5. TONG KET
+% 6. TỔNG KẾT VÀ INSIGHT
 %================================================
-\section{Tổng kết}
+\section{Tổng kết và Insight}
 
+\subsection{Tổng hợp các Insight quan trọng}
+Trải qua toàn bộ quy trình từ kiểm thử dữ liệu, áp dụng thuật toán học máy cho đến xây dựng mô hình trực quan hóa đa chiều, nhóm đã tổng hợp được các phát hiện (insights) quan trọng nhất. Những nhận định này không chỉ phản ánh hiệu suất kinh doanh trên mô hình giả định mà còn chỉ ra những đặc trưng cốt lõi về mặt toán học của hệ thống dữ liệu:
+
+\begin{itemize}
+    \item \textbf{Về Tài chính \& Bán hàng:} Dòng tiền của doanh nghiệp duy trì một tốc độ tăng trưởng ổn định ở mức +29.8\% YoY qua các năm. Tuy nhiên, phân tích sâu về hoạt động bán hàng cho thấy sự thiếu vắng hoàn toàn của các yếu tố mùa vụ (seasonality) hay biến động thị trường thường thấy trong bán lẻ. Ngoài ra, chính sách khuyến mãi hiện tại chưa tối ưu hóa được biên lợi nhuận, khi mức giảm giá trung bình (dao động rất hẹp quanh mốc 21.9\% - 22.0\%) gần như bằng nhau ở mọi nhóm khách hàng nhưng lại tạo ra mức đóng góp doanh thu chênh lệch cực kỳ lớn.
+    
+    \item \textbf{Về Khách hàng (Mô hình RFM):} Việc ứng dụng thuật toán học máy K-Means đã phân tách hiệu quả 50,000 khách hàng thành các ranh giới rõ rệt dựa trên khoảng cách Euclidean. Tuy nhiên, kết quả trực quan hóa chỉ ra một phân phối đi ngược lại với nguyên lý Pareto (80/20) trong thực tế: nhóm \textit{VIP} lại chiếm quy mô lớn nhất (19,033 khách hàng), trong khi nhóm \textit{At Risk} lại ít nhất (6,085 khách hàng). Sự phân bổ trái ngược này phản ánh trực tiếp thuật toán tạo sinh dữ liệu nguồn, nơi các giá trị chi tiêu và tần suất mua hàng được phân phối đồng đều thay vì phân phối theo luật lũy thừa (power-law distribution) của thị trường thực tế.
+    
+    \item \textbf{Về Chuỗi cung ứng \& Sản phẩm:} Năng lực cung ứng của các đối tác từ Mỹ, Trung Quốc và Ấn Độ cho thấy sự đồng bộ một cách tuyệt đối về cấu trúc danh mục và sản lượng. Rủi ro hoàn trả (Return Rate) toàn hệ thống được kiểm soát tốt ở mức an toàn ($\approx 4.88\%$). Biểu đồ so sánh sản lượng bán chạy và bán chậm cho thấy khoảng cách doanh số giữa nhóm đầu bảng và cuối bảng là cực kỳ hẹp (tất cả đều dao động quanh mức 40,000 - 50,000 sản phẩm), cho thấy doanh nghiệp không có sản phẩm mũi nhọn hay sản phẩm tồn kho thực sự.
+    
+    \item \textbf{Về Vận hành \& Nguồn nhân lực:} Doanh nghiệp sở hữu mô hình tổ chức nhân sự lý tưởng với tỷ lệ trung bình chính xác 10 nhân viên/cửa hàng. Quy mô nhân sự tại các thành phố có mối tương quan thuận tuyến tính hoàn hảo với doanh thu tạo ra (điển hình là Mumbai với 305 nhân sự dẫn đầu doanh thu). Điểm nghẽn vận hành lớn nhất nằm ở khâu Logistics khi tỷ lệ giao trễ chạm ngưỡng gần chính xác $1/3$ tổng đơn hàng (33.28\%). Về mặt thống kê, tỷ lệ này tương đương với một phân phối ngẫu nhiên đồng đều (uniform random distribution) giữa 3 trạng thái giao hàng, đòi hỏi doanh nghiệp phải tái cấu trúc toàn diện quy trình vận chuyển.
+\end{itemize}
+
+\subsection{Kết luận chung}
+Đồ án Lab 03 đã được nhóm hoàn thành theo đúng các yêu cầu đặt ra trong chương trình học. Nhóm đã xây dựng thành công quy trình xử lý dữ liệu khép kín: từ kiểm thử chất lượng dữ liệu bằng Python (EDA), ứng dụng phân cụm học máy (K-Means), thiết lập mô hình dữ liệu chuẩn Star Schema trong Power BI cho đến việc lập trình hệ thống 36 độ đo DAX để tối ưu hóa việc kéo thả biểu đồ trực quan.
+
+Một bài học khác mà nhóm gặt hái được sau đồ án này không chỉ dừng lại ở kỹ năng sử dụng công cụ trực quan hóa hay lập trình DAX, mà nằm ở \textbf{Năng lực đọc hiểu dữ liệu (Data Literacy)}. Đối mặt với một bộ dữ liệu giả lập (\textit{Synthetic Dataset}) có phân bố đồng đều đến mức cực đoan, nhóm đã không cố gắng khiên cưỡng xây dựng những câu chuyện kinh doanh phi thực tế. 
+
+Thay vào đó, nhóm đã tiếp cận dữ liệu một cách khách quan, sử dụng các biểu đồ có tính so sánh và phân tích cao (như Diverging Bar, Radar, Lollipop) để phân tích cấu trúc toán học của hệ thống dữ liệu. Khả năng nhận diện và phân biệt rõ ràng giữa "insight kinh doanh thực tế" và "nhiễu thuật toán" trong dữ liệu mô phỏng chính là tư duy phân tích quan trọng mà nhóm tích lũy được.

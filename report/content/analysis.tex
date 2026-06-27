@@ -1,0 +1,236 @@
+%================================================
+% 5. PHÂN TÍCH & TRỰC QUAN HÓA
+%================================================
+\section{Phân tích và Trực quan hóa}
+
+\subsection{Dashboard Tổng quan}
+Trang Tổng quan (Overview) do thành viên Lê Đức Phúc chịu trách nhiệm thiết kế chính. Đây là màn hình điều hành trung tâm (Executive Dashboard). Mục tiêu thiết kế của trang này là cung cấp một góc nhìn trực diện, nhanh chóng về "sức khỏe" tổng thể của doanh nghiệp trên ba khía cạnh cốt lõi: Tài chính (Doanh thu, Tăng trưởng), Khách hàng (Quy mô khách hàng, Phân khúc) và Vận hành (Trạng thái logistics, Chuỗi cung ứng).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{overview.png}
+    \caption{Giao diện trang Dashboard Tổng quan}
+    \label{fig:dashboard_overview}
+\end{figure}
+
+\textbf{1. Bố cục không gian và Kiến trúc UI/UX} \\
+Bố cục của trang Tổng quan được phân chia khoa học dựa trên thói quen đọc thông tin từ trái qua phải, từ trên xuống dưới (F-shape pattern):
+\begin{itemize}
+    \item \textbf{Thanh tác vụ bên trái (Left Sidebar):} Được thiết kế cố định với màu nền tối tương phản cao, bao gồm hệ thống nút điều hướng (Navigation Buttons) liên kết trực tiếp đến 5 trang báo cáo chuyên sâu. Phía dưới là vùng chứa các bộ lọc slicer đồng bộ (Năm, Tháng, Phân khúc khách hàng, Nhà cung cấp) và nút bấm Khởi tạo lại (\textit{Reset Button}) được liên kết với Bookmark \texttt{BM\_Reset\_Overview} để nhanh chóng đưa dashboard về trạng thái mặc định.
+    \item \textbf{Phần tiêu đề (Header):} Sử dụng font chữ \textit{Segoe UI Semibold} kích thước lớn, phân tách rõ ràng tiêu đề trang chính và mô tả ngắn bằng một đường ranh giới dọc thanh mảnh để tạo cảm giác hiện đại và thông thoáng.
+    \item \textbf{Hàng chỉ số KPI (Top KPI Row):} Nằm ngay dưới tiêu đề, gồm 4 thẻ KPI độc lập giúp tóm tắt nhanh các chỉ số định lượng quan trọng nhất mà không làm phân tán sự chú ý.
+    \item \textbf{Lưới biểu đồ chính (2x2 Grid Visuals):} Bốn biểu đồ được phân bổ cân đối trong các khung chứa (containers) có bo góc nhẹ và đổ bóng mờ, giúp phân biệt rõ ràng các khu vực phân tích.
+\end{itemize}
+
+\textbf{2. Phân tích Thẻ KPI cốt lõi} \\
+Bốn thẻ KPI được lựa chọn đại diện cho bốn thước đo hiệu quả hoạt động (KPIs) độc lập nhưng bổ trợ lẫn nhau:
+\begin{itemize}
+    \item \textbf{Tổng doanh thu (\$3.83B):} Chỉ số tài chính gộp cao nhất, phản ánh quy mô giao dịch cực lớn của toàn hệ thống trong chu kỳ phân tích (2020 - 2024).
+    \item \textbf{Tổng khách hàng (50,000):} Quy mô tệp khách hàng hoạt động (Active Customers), làm cơ sở để tính toán hiệu quả của các chiến dịch giữ chân khách hàng.
+    \item \textbf{Tỷ lệ giao trễ (33.28\%):} Chỉ số cảnh báo rủi ro vận hành. Tỷ lệ này được định dạng nổi bật với màu đỏ kèm biểu tượng cảnh báo (\textit{Warning Icon}) nhằm thu hút sự chú ý ngay lập tức của ban quản trị, bởi vì trong bán lẻ thực tế, tỷ lệ giao trễ vượt quá 5\% đã được xem là nghiêm trọng.
+    \item \textbf{Tăng trưởng YoY (+29.8\%):} Tốc độ phát triển doanh thu so với cùng kỳ năm trước, thể hiện doanh nghiệp vẫn đang nằm trong chu kỳ mở rộng quy mô ổn định.
+\end{itemize}
+
+\textbf{3. Trực quan hóa chi tiết và Đọc vị đặc tính dữ liệu} \\
+Hệ thống biểu đồ trên trang Tổng quan được nhóm thiết kế bằng công cụ Deneb (Vega-Lite) nhằm tối ưu khả năng tùy biến hiển thị, đồng thời phản ánh trung thực đặc trưng phân phối của dữ liệu nguồn:
+\begin{itemize}
+    \item \textbf{Xu hướng theo thời gian (Combo Chart):} Kết hợp biểu đồ cột (Doanh thu) và đường (Số đơn hàng) trên hai trục Y độc lập. Việc doanh thu và lượng đơn chạy song song, phẳng lặng qua tất cả các tháng từ 2020 đến 2024 cho thấy dòng tiền được tạo ra bằng thuật toán phân phối đều, triệt tiêu hoàn toàn các yếu tố biến động mùa vụ thực tế.
+    \item \textbf{Trạng thái vận chuyển (Donut Chart):} Biểu diễn cơ cấu 300,000 vận đơn với tâm rỗng tận dụng hiển thị tổng lượng đơn để tối ưu không gian. Do tính chất giả lập ngẫu nhiên đồng đều, cả 3 trạng thái (\textit{Delivered, Shipped, Late}) chia đều với tỷ lệ gần như chính xác tuyệt đối là $1/3$ mỗi phần ($\approx 100,000$ đơn/phần).
+    \item \textbf{Hiệu suất theo Quốc gia (Radar Chart):} So sánh đa chiều hiệu suất chuỗi cung ứng của ba quốc gia trên 4 trục đánh giá (Doanh thu, Số NCC, Số lượng bán, Số sản phẩm). Trong khi Mỹ chiếm diện tích lớn bao phủ bên ngoài, hình thoi của Trung Quốc và Ấn Độ chồng khít lên nhau tuyệt đối, xác nhận thuật toán sinh dữ liệu đã áp dụng cùng một bộ vector phân phối.
+    \item \textbf{Doanh thu theo phân khúc khách hàng (Lollipop Chart):} Biểu diễn mức đóng góp doanh thu của 4 nhóm khách hàng được định danh từ thuật toán phân cụm K-Means RFM. Biểu đồ dạng kẹo mút giúp giảm mật độ mực (data-ink ratio) nhưng vẫn làm nổi bật mức doanh thu vượt trội của nhóm \textit{VIP} (\$1.62B), tiếp theo lần lượt là \textit{Loyal} (\$1.10B), \textit{New} (\$785M) và \textit{At Risk} (\$321M).
+\end{itemize}
+
+\subsection{Phân tích Xu hướng Doanh thu}
+Trang Xu hướng Doanh thu (Sales Trend) do thành viên Dương Tuấn Anh chịu trách nhiệm thiết kế chính. Mục tiêu của trang báo cáo này là đào sâu vào khía cạnh tài chính của doanh nghiệp, thực hiện kiểm toán dòng tiền, phân tích các chỉ số tăng trưởng theo chu kỳ thời gian và đánh giá tác động của các chính sách khuyến mãi đến hành vi mua sắm của các phân khúc khách hàng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{sales-trend.png}
+    \caption{Giao diện trang Dashboard Xu hướng Doanh thu}
+    \label{fig:dashboard_salestrend}
+\end{figure}
+
+\textbf{1. Bố cục trực quan và Giải pháp Bộ lọc chuyên biệt} \\
+Giao diện trang Sales Trend duy trì sự đồng bộ chặt chẽ với trang Tổng quan nhờ việc sử dụng cùng một slide nền thiết kế (Background Template). Tuy nhiên, để phục vụ mục tiêu phân tích chuyên sâu về tài chính, hệ thống bộ lọc ở thanh tác vụ bên trái (\textit{Left Sidebar}) đã có sự thay đổi:
+\begin{itemize}
+    \item Thay thế bộ lọc địa lý bằng bộ lọc \textbf{Giảm giá} (\texttt{promotions[discount]}), cho phép người dùng chủ động quan sát sự biến động của dòng tiền khi áp dụng các mức chiết khấu khác nhau.
+    \item Nút bấm \textit{Reset} ở góc dưới cùng được liên kết với bookmark cục bộ \texttt{BM\_Reset\_SalesTrend} nhằm đảm bảo khi người dùng nhấn nút, hệ thống chỉ đặt lại các slicer trên trang hiện tại mà không làm ảnh hưởng đến trạng thái bộ lọc của các trang phân tích khác.
+    \end{itemize}
+
+\textbf{2. Phân tích Chuyên sâu các Chỉ số KPI Tài chính} \\
+Hàng KPI phía trên cùng được mở rộng thêm hai độ đo tài chính quan trọng, được tính toán thông qua các DAX Measures phức tạp trong bảng quản lý tập trung \texttt{\_Measures}:
+\begin{itemize}
+    \item \textbf{Doanh thu ròng (Net Revenue - \$3.75B):} 
+    Được tính bằng công thức DAX \texttt{[Net Revenue] = [Total Revenue] - [Total Refund]}. Việc trừ đi phần tiền hoàn trả thực tế từ bảng \texttt{returns} giúp ban lãnh đạo nhìn nhận chính xác dòng tiền thực tế giữ lại được của doanh nghiệp, tránh việc ảo tưởng doanh số gộp từ các đơn hàng bị trả lại.
+    \item \textbf{Giá trị trung bình mỗi đơn (Average Order Value - \$12,759.15):} 
+    Được tính bằng cách lấy tổng doanh thu chia cho số đơn hàng duy nhất. Mức AOV lên tới hơn \$12,000/đơn là một con số cực kỳ lớn trong ngành bán lẻ tiêu dùng, phản ánh bản chất của dữ liệu mô phỏng tập trung vào các giao dịch có giá trị đơn hàng rất lớn hoặc bán buôn (B2B).
+    \item \textbf{Tăng trưởng YoY (+29.8\%):} 
+    Đo lường tốc độ tăng trưởng doanh thu so với cùng kỳ năm trước thông qua hàm DAX Time Intelligence \texttt{SAMEPERIODLASTYEAR}. Chỉ số này khẳng định doanh nghiệp đang duy trì một tốc độ phát triển ổn định đồng đều qua các năm.
+\end{itemize}
+
+\textbf{3. Trực quan hóa và Biện giải Kỹ thuật Dữ liệu} \\
+Bốn biểu đồ chính trên trang cung cấp các góc nhìn đa chiều về dòng tiền và bộc lộ rõ những đặc tính kỹ thuật đáng chú ý của bộ dữ liệu nguồn:
+\begin{itemize}
+    \item \textbf{Xu hướng Doanh thu và Số đơn hàng theo thời gian (Combo Chart):} 
+    Biểu đồ kết hợp cột và đường sử dụng kỹ thuật bất đối xứng trục Y (Dual-axis Y1 và Y2) nhằm biểu diễn hai đại lượng có đơn vị và thang đo hoàn toàn khác nhau. 
+    
+    \textit{Phát hiện kỹ thuật:} Biểu đồ cho thấy sự bằng phẳng hoàn hảo qua các năm 2020 - 2023. Tuy nhiên, ở điểm mốc cuối cùng (tháng 01/2024), cả Doanh thu và Số đơn hàng đều có một cú rơi thẳng đứng chạm mốc gần như bằng 0. Đây là một hiện tượng kinh điển trong kỹ thuật dữ liệu (Data Engineering): lỗi sụt giảm dữ liệu ở biên thời gian do quy trình trích xuất dữ liệu (ETL) bị cắt ngang khi tháng 01/2024 chưa đi hết chu kỳ.
+    
+    \item \textbf{Doanh thu hiện tại so với Cùng kỳ năm trước (Area \& Line Chart):} 
+    Đường màu xanh lam biểu thị doanh thu của năm hiện tại, chạy đè sát sạt lên vùng diện tích mờ màu xám biểu thị doanh thu của cùng kỳ năm trước. Biểu đồ này giúp nhà quản trị phát hiện nhanh các "khoảng trống" tăng trưởng. Do tốc độ tăng trưởng của dữ liệu nguồn được thiết lập theo một hệ số nhân cố định bởi thuật toán, đường xu hướng của các năm gần như trùng khớp hoàn hảo về mặt hình học, chỉ lệch nhau một khoảng cách tỷ lệ đều đặn.
+    
+    \item \textbf{Xu hướng doanh thu theo phân khúc qua các tháng (Layered Area Chart):} 
+    Biểu đồ vùng xếp chồng trực quan hóa đóng góp doanh thu của 4 phân khúc khách hàng hoạt động (VIP, New, Loyal, At Risk) theo thời gian. Các dải màu chạy song song phẳng lặng, phản ánh một cấu trúc khách hàng vô cùng ổn định. Nhóm khách hàng VIP (màu xanh ngọc) luôn chiếm tỷ trọng lớn nhất và đóng vai trò là "bệ đỡ" doanh thu vững chắc cho toàn doanh nghiệp. Hiện tượng sụt giảm đột ngột ở mốc tháng 01/2024 do lỗi cắt biên ETL tiếp tục được thể hiện đồng loạt trên cả 4 phân khúc ở biểu đồ này.
+    
+    \item \textbf{Tương quan giữa Giảm giá, Doanh thu và Số đơn (Bubble Chart / Scatter Plot):} 
+    Đây là biểu đồ tán xạ đa chiều, trong đó vị trí bong bóng thể hiện mối quan hệ giữa Mức giảm giá trung bình (Trục X) và Tổng doanh thu (Trục Y), độ lớn của bong bóng thể hiện Số lượng đơn hàng, và màu sắc phân biệt các phân khúc khách hàng.
+    
+    \textit{Đọc vị thuật toán dữ liệu:} Bốn bong bóng đại diện cho bốn phân khúc đứng tách biệt hoàn toàn trên biểu đồ, nhưng điều bất thường là chúng đều xếp gần như thẳng hàng trên một trục dọc tương ứng với mức giảm giá trung bình cực kỳ hẹp từ 21.9\% đến 22.0\%. Hiện tượng này tiết lộ rằng thuật toán sinh dữ liệu giả lập đã áp dụng một mức chiết khấu ngẫu nhiên có phân phối chuẩn quanh giá trị trung bình 22\% cho tất cả các đơn hàng.
+\end{itemize}
+
+\subsection{Phân tích Khách hàng}
+Trang Khách hàng (Customers) do thành viên Lê Xuân Trí thiết kế. Trang phân tích này đi sâu vào nghiên cứu chân dung khách hàng, hành vi tiêu dùng và đóng góp tài chính của từng phân khúc được định danh từ kết quả của thuật toán học máy K-Means Clustering trên mô hình RFM.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{customers.png}
+    \caption{Giao diện trang Dashboard Khách hàng}
+    \label{fig:dashboard_customers}
+\end{figure}
+
+\textbf{1. Thiết kế Bố cục và Giải pháp Điều hướng tương tác} \\
+Để hỗ trợ ban quản lý tối ưu hóa trải nghiệm tương tác trực quan, trang Khách hàng duy trì cấu trúc Left Sidebar tiêu chuẩn nhưng đã tinh chỉnh các bộ lọc chuyên biệt:
+\begin{itemize}
+    \item Hệ thống lọc bao gồm: Năm, Tháng, Khách hàng, và bộ lọc đặc thù \textbf{Trạng thái đơn hàng}, giúp phân tích hành vi mua sắm của khách hàng gắn liền với kết quả hoàn tất đơn hàng.
+    \item Nút tác vụ \textit{Reset} được liên kết với bookmark cục bộ \texttt{BM\_Reset\_Customers} nhằm nhanh chóng đưa toàn bộ các bộ lọc tương tác trên trang hiện tại về cấu hình mặc định ban đầu mà không làm gián đoạn trạng thái phân tích ở các trang khác.
+\end{itemize}
+
+\textbf{2. Nền tảng Học máy (K-Means RFM) và Chỉ số KPI Khách hàng} \\
+Mô hình K-Means chạy trên Python (\texttt{machine\_learning.py}) đã tính toán ba chỉ số hành vi (R, F, M) trên mỗi \texttt{customer\_id} duy nhất để phân cụm. Các chỉ số KPI tổng hợp trên trang phản ánh một cấu trúc khách hàng có giá trị giao dịch đặc biệt lớn:
+\begin{itemize}
+    \item \textbf{Tổng khách hàng (50,000):} Quy mô cơ sở dữ liệu khách hàng được ghi nhận hoạt động trong hệ thống.
+    \item \textbf{Doanh thu / Khách hàng (\$76,555):} Chỉ số ARPU (Average Revenue Per User) đạt mức cực cao. Giá trị này phản ánh đặc thù kinh doanh bán buôn hoặc các giao dịch giá trị lớn của chuỗi phân phối trong tệp dữ liệu mô phỏng.
+    \item \textbf{Tổng đơn hàng (300,000) \& Số dòng hàng / đơn (2.0):} Tỷ lệ chính xác tuyệt đối $2.0$ dòng hàng trên mỗi đơn hàng là bằng chứng rõ nét cho thấy cấu trúc giỏ hàng đã được thiết lập cố định bằng một hệ số nhân trong thuật toán tạo dữ liệu nguồn.
+\end{itemize}
+
+\textbf{3. Trực quan hóa hành vi và Đọc vị quy luật giả lập} \\
+Bốn biểu đồ chính cung cấp các góc nhìn đa chiều về chân dung khách hàng và bộc lộ những đặc tính giả lập đặc trưng:
+\begin{itemize}
+    \item \textbf{Doanh thu theo phân khúc khách hàng (Lollipop Chart):} 
+    Nhóm dùng biểu đồ kẹo mút (Lollipop Chart) để giảm mật độ mực in trên trang (data-ink ratio) mà vẫn tối ưu khả năng so sánh độ chênh lệch. Nhóm khách hàng \textit{VIP} mang lại doanh thu áp đảo vượt trội (\$1.62B), tiếp sau lần lượt là \textit{Loyal} (\$1.10B), \textit{New} (\$785M) và thấp nhất là nhóm \textit{At Risk} (\$321M).
+    
+    \item \textbf{Tỷ trọng khách hàng theo phân khúc (Arc/Donut Chart):} 
+    Sử dụng biểu đồ hình vành khuyên cắt đoạn (Arc Chart) cách điệu để thể hiện quy mô số lượng thành viên trong từng cụm phân loại RFM. 
+    
+    \textit{Đọc vị dữ liệu:} Trong thực tế bán lẻ, phân khúc VIP thường tuân theo quy tắc Pareto (chỉ chiếm dưới 5\% quy mô khách hàng nhưng mang lại 80\% doanh thu). Tuy nhiên, biểu đồ cho thấy nhóm \textit{VIP} lại là nhóm đông dân số nhất (19,033 khách hàng), theo sau là \textit{Loyal} (15,179), \textit{New} (8,869) và \textit{At Risk} (6,805). Một điểm đáng chú ý là sự xuất hiện của tệp khách hàng \textit{Unknown} (114 người). Đây là những tài khoản đã đăng ký trên hệ thống nhưng chưa phát sinh bất kỳ đơn hàng hay giao dịch thanh toán nào, dẫn đến việc các đặc trưng RFM bị khuyết thiếu (Null/NaN) trong quá trình tiền xử lý dữ liệu và được thuật toán phân cụm gắn nhãn mặc định là \textit{Unknown}.
+    
+    \item \textbf{Chất lượng khách hàng theo Thành phố (Bubble Chart / Scatter Plot):} 
+    Trực quan hóa hiệu suất khách hàng tại 4 thành phố (Bangalore, Delhi, Mumbai, Pune). Trục X biểu diễn số lượng khách hàng, trục Y biểu diễn Doanh thu trung bình trên mỗi khách hàng, và độ lớn bong bóng đại diện cho tổng doanh thu đóng góp.
+    
+    \textit{Đọc vị dữ liệu:} Bốn bong bóng đại diện cho bốn thành phố xếp gần như nằm ngang hoàn hảo trên một đường thẳng tương ứng với mốc doanh thu trung bình \$76K - \$77K/khách hàng. Điều này tiết lộ rằng chỉ số chi tiêu trung bình của khách hàng không có bất kỳ mối tương quan nào với yếu tố địa lý trong bộ dữ liệu nguồn (trong thực tế, các thành phố khác nhau luôn có chỉ số sức mua PPI phân hóa rất rõ rệt). Sự chênh lệch duy nhất giữa các thành phố chỉ là quy mô số lượng khách hàng thu hút được (nằm trong khoảng hẹp từ 12,300 đến 12,700 người).
+    
+    \item \textbf{Sở thích mua sắm theo từng phân khúc (Heatmap Matrix):} 
+    Biểu đồ ma trận nhiệt trực quan hóa doanh thu của Top 8 danh mục sản phẩm được tiêu thụ nhiều nhất, phân rã theo 4 phân khúc khách hàng.
+    
+    \textit{Đọc vị dữ liệu:} Ma trận nhiệt bộc lộ đặc tính phân phối đều cực đoan của bộ dữ liệu giả lập. Doanh thu của mỗi phân khúc được chia đều cho tất cả các danh mục sản phẩm. Điều này chứng minh rằng thuật toán sinh dữ liệu đã áp dụng phân phối ngẫu nhiên độc lập (independent random distribution) cho các danh mục sản phẩm, hoàn toàn triệt tiêu các yếu tố về hành vi mua sắm đặc trưng của từng phân khúc.
+\end{itemize}
+
+\subsection{Phân tích Sản phẩm}
+Trang Sản phẩm (Products) do thành viên Nguyễn Trần Trung Kiên chịu trách nhiệm thiết kế chính. Trang phân tích này tập trung đánh giá hiệu suất thương mại của danh mục hàng hóa và kiểm soát rủi ro hoàn trả hàng (Return Rate), giúp nhà quản lý chuỗi cung ứng nhận diện kịp thời các vấn đề về chất lượng sản phẩm và tối ưu hóa danh mục tồn kho.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{products.png}
+    \caption{Giao diện trang Dashboard Sản phẩm}
+    \label{fig:dashboard_products}
+\end{figure}
+
+\textbf{1. Thiết kế Bố cục và Giải pháp Điều hướng tương tác} \\
+Trang báo cáo duy trì tính đồng nhất của hệ thống thông qua việc sử dụng chung slide nền tối của thanh Left Sidebar, đồng thời điều chỉnh các bộ lọc để phục vụ riêng cho nghiệp vụ quản lý sản phẩm:
+\begin{itemize}
+    \item Các bộ lọc bao gồm: Năm, Tháng, và bộ lọc chuyên biệt \textbf{Sản phẩm} (\texttt{products[product\_name]}) cùng với \textbf{Nhà cung cấp} (\texttt{suppliers[supplier\_name]}), cho phép người dùng truy vấn nhanh hiệu suất của từng mặt hàng cụ thể hoặc từng đối tác cung ứng.
+    \item Nút bấm khởi tạo lại (\textit{Reset}) được liên kết với bookmark cục bộ \texttt{BM\_Reset\_Products} để đưa các slicer trên trang hiện tại về trạng thái mặc định mà không làm ảnh hưởng đến các lựa chọn bộ lọc ở các trang phân tích khác.
+\end{itemize}
+
+\textbf{2. Phân tích Chi tiết Hệ chỉ số KPI Sản phẩm} \\
+Bốn thẻ KPI độc lập hiển thị các thông số định lượng gộp về quy mô hoạt động của chuỗi cung ứng:
+\begin{itemize}
+    \item \textbf{Tổng sản phẩm (10,000) \& Tổng danh mục (30):} 
+    Doanh nghiệp vận hành một danh mục sản phẩm rất lớn. Tỷ lệ trung bình khoảng 333 sản phẩm trên mỗi danh mục, thể hiện tính đa dạng cao trong cơ cấu mặt hàng.
+    \item \textbf{Tổng số lượng bán (1,500,518):} 
+    Số lượng sản phẩm thực tế đã được phân phối thành công ra thị trường. Tính trung bình, mỗi sản phẩm trong kho tiêu thụ được khoảng 150 đơn vị sản phẩm trong suốt chu kỳ 4 năm, phản ánh tốc độ luân chuyển hàng hóa đồng đều.
+    \item \textbf{Tỷ lệ hoàn trả (4.88\%):} 
+    Độ đo phản ánh rủi ro chất lượng. Tỷ lệ hoàn trả dưới mức 5\% được đánh dấu bằng màu xanh lá và icon tích chọn an toàn, cho thấy quy trình kiểm soát chất lượng đầu vào của chuỗi cung ứng hoạt động tương đối tốt.
+\end{itemize}
+
+\textbf{3. Trực quan hóa hiệu suất và Giải mã tính đồng nhất dữ liệu} \\
+Các biểu đồ được xây dựng bằng công cụ Deneb (Vega-Lite) nhằm tùy biến sâu các thuộc tính, qua đó lột tả được bản chất toán học của dữ liệu:
+\begin{itemize}
+    \item \textbf{Danh mục sản phẩm tạo doanh thu cao nhất (Bar Chart kết hợp Gradient màu):} 
+    Biểu đồ cột ngang sử dụng kỹ thuật mã hóa kép (Dual-encoding): độ dài của thanh biểu thị Doanh thu và màu sắc của thanh biểu thị Tỷ lệ hoàn trả (chạy từ màu vàng 4.70\% đến màu đỏ thẫm 5.00\%). 
+    
+    \textit{Đọc vị dữ liệu:} Phân bố doanh thu của Top 10 danh mục dẫn đầu gần như nằm ngang phẳng lặng (chênh lệch rất nhỏ, dao động từ \$132M đến \$137M, tức biên độ lệch chỉ khoảng 3.7\%). Điều này cho thấy sức mua được phân bổ đồng đều tuyệt đối lên tất cả các nhóm hàng.
+    
+    \item \textbf{Chênh lệch số lượng bán giữa Nhóm dẫn đầu và Cuối bảng (Diverging Bar Chart):} 
+    Biểu đồ phân kỳ đối đầu so sánh trực tiếp số lượng tiêu thụ của Top 6 danh mục bán chạy nhất (màu xanh lá) và Bottom 6 danh mục bán chậm nhất (màu đỏ). 
+    
+    \textit{Đọc vị dữ liệu:} Trong thực tế bán lẻ, phân bố sản phẩm luôn tuân theo quy tắc "đuôi dài" (Long-tail distribution), nơi các sản phẩm hot có doanh số gấp hàng chục, hàng trăm lần các sản phẩm bán chậm. Tuy nhiên, biểu đồ này cho thấy một đường thẳng tắp phẳng lặng quanh mốc 40,000 đến 50,000 sản phẩm cho cả nhóm dẫn đầu và nhóm cuối bảng. Đây là bằng chứng toán học rõ nét nhất về tính chất đồng nhất nhân tạo của bộ dữ liệu nguồn.
+    
+    \item \textbf{Danh mục có tỷ lệ hoàn trả đáng chú ý (Horizontal Lollipop Chart):} 
+    Biểu đồ kẹo mút ngang được chọn để trực quan hóa Top 5 danh mục có tỷ lệ hoàn trả cao nhất. Việc dùng lollipop chart giúp giảm mật độ mực in nhưng vẫn thể hiện rõ nét các giá trị so sánh nhỏ ở phần đầu mút tròn.
+    
+    \textit{Đọc vị dữ liệu:} Dù bị gắn nhãn là "đáng chú ý" để phục vụ mục tiêu cảnh báo, mức hoàn trả của danh mục cao nhất (\textit{Cat\_11} - 5.26\%) chỉ chênh lệch rất nhỏ so với danh mục xếp thứ 5 (\textit{Cat\_24} - 5.02\%) và chỉ lệch chưa đầy 0.4\% so với mức trung bình của toàn hệ thống (4.88\%). Điều này cho thấy rủi ro hoàn trả được kiểm soát chặt chẽ bởi một phân phối chuẩn có phương sai cực nhỏ, hoàn toàn không có lỗi hệ thống hay lỗi sản phẩm nghiêm trọng nào xảy ra.
+    
+    \item \textbf{Hiệu suất tổng quan theo Quốc gia nguồn cung (Radar Chart):} 
+    Biểu đồ mạng nhện so sánh hiệu suất chuỗi cung ứng của USA, China và India dựa trên 4 chiều đo lường (Doanh thu, Số NCC, Số lượng bán, Số sản phẩm). 
+    
+    \textit{Đọc vị dữ liệu:} Trong khi Mỹ (USA) bao phủ diện tích lớn nhất ngoài cùng, hai hình thoi của Trung Quốc (China) và Ấn Độ (India) lại chồng khít lên nhau một cách tuyệt đối ở lớp bên trong.
+\end{itemize}
+
+\subsection{Phân tích Vận hành}
+Trang Vận hành (Operations) do thành viên Lê Đức Phúc chịu trách nhiệm thiết kế chính. Trang phân tích này cung cấp một góc nhìn trực diện vào bộ máy nội bộ của doanh nghiệp, tập trung đánh giá hiệu quả kinh doanh của mạng lưới cửa hàng vật lý, năng suất của đội ngũ nhân sự và năng lực quản lý chuỗi cung ứng logistics (giao hàng).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{operations.png}
+    \caption{Giao diện trang Dashboard Vận hành}
+    \label{fig:dashboard_operations}
+\end{figure}
+
+\textbf{1. Thiết kế Bố cục và Giải pháp Điều hướng tương tác} \\
+Bố cục của trang Vận hành được sắp xếp nhất quán với toàn bộ hệ thống báo cáo, đồng thời cấu hình các bộ lọc slicer chuyên biệt đặt tại thanh Left Sidebar để phục vụ tác vụ quản trị:
+\begin{itemize}
+    \item Hệ thống bộ lọc bao gồm: Năm, Tháng, bộ lọc địa hạt \textbf{Thành phố} (\texttt{stores[city]}), và \textbf{Trạng thái giao hàng} (\texttt{shipments[status]}). Sự kết hợp này cho phép ban vận hành kiểm tra hiệu suất giao hàng trễ của từng chi nhánh tại từng thành phố cụ thể theo từng tháng.
+    \item Nút bấm khởi tạo lại (\textit{Reset}) ở góc dưới cùng được liên kết trực tiếp với bookmark cục bộ \texttt{BM\_Reset\_Operations} để nhanh chóng đưa toàn bộ các bộ lọc tương tác trên trang hiện tại về cấu hình mặc định ban đầu mà không làm gián đoạn trạng thái phân tích ở các trang khác.
+\end{itemize}
+
+\textbf{2. Phân tích Chi tiết Hệ chỉ số KPI Vận hành} \\
+Bốn thẻ KPI độc lập hiển thị các thước đo hiệu suất gộp về quy mô nhân sự và hiệu quả giao vận:
+\begin{itemize}
+    \item \textbf{Tổng cửa hàng (100) \& Tổng nhân viên (1,000):} 
+    Doanh nghiệp vận hành một mạng lưới phân phối cơ bản ổn định. Tỷ lệ trung bình đạt chính xác $10.0$ nhân viên trên một cửa hàng, thể hiện một cấu trúc phân bổ định biên nhân sự lý tưởng nhưng phi thực tế trong môi trường kinh doanh thực tiễn (nơi quy mô nhân sự tại các chi nhánh luôn biến động mạnh dựa trên diện tích cửa hàng và lưu lượng khách).
+    \item \textbf{Lương trung bình (\$49,448/năm):} 
+    Mức lương trung bình của nhân viên bán hàng được duy trì ở mức trung lưu ổn định, làm cơ sở để tính toán chi phí vận hành cố định của toàn chuỗi cửa hàng.
+    \item \textbf{Tỷ lệ giao trễ (33.28\%):} 
+    Chỉ số phản ánh rủi ro logistics cực kỳ lớn. Tỷ lệ giao trễ vượt quá $1/3$ tổng số đơn hàng được đánh dấu bằng màu đỏ nổi bật kèm biểu tượng cảnh báo (\textit{Warning Icon}), phản ánh điểm nghẽn nghiêm trọng trong quy trình xử lý đơn hàng hoặc năng lực của đơn vị vận chuyển đối tác.
+\end{itemize}
+
+\textbf{3. Trực quan hóa hiệu suất vận hành và Nhận diện quy luật thuật toán} \\
+Các biểu đồ được xây dựng bằng công cụ Deneb (Vega-Lite) nhằm tùy biến sâu các thuộc tính, qua đó lột tả được bản chất toán học của dữ liệu:
+\begin{itemize}
+    \item \textbf{Hiệu suất doanh thu của cửa hàng theo Thành phố (Bar Chart):} 
+    Biểu đồ cột ngang phân tích đóng góp tài chính gộp của các chi nhánh cửa hàng tại các thành phố. Mumbai dẫn đầu mạng lưới với \$1.19B, theo sau là Pune (\$1.04B), Delhi (\$806M) và Bangalore (\$796M). Đây là một trong số ít các chỉ số có sự phân hóa rõ rệt trong bộ dữ liệu nguồn, phản ánh quy mô thị trường khác nhau của các vùng kinh tế trọng điểm.
+    
+    \item \textbf{Tình trạng vận chuyển (Donut Chart):} 
+    Tương tự như biểu đồ trên trang Tổng quan, biểu đồ bánh donut phân rã chi tiết trạng thái của 300,000 vận đơn. Sự đồng đều toán học cực đoan xuất hiện khi mỗi trạng thái (\textit{Delivered} - 99,862 đơn, \textit{Shipped} - 100,283 đơn, \textit{Late} - 99,855 đơn) chiếm chính xác $1/3$ tổng lượng đơn hàng. Điều này xác nhận quy trình vận chuyển được giả lập bằng phương pháp ngẫu nhiên đồng đều (uniform random).
+    
+    \item \textbf{Biến động đơn giao trễ theo chu kỳ thời gian (Combo Chart):} 
+    Sử dụng trục Y kép để biểu diễn đồng thời Số lượng đơn trễ (cột đỏ) và Tỷ lệ giao trễ (đường xanh lam). 
+    
+    \textit{Đọc vị dữ liệu:} Trong thực tế bán lẻ, tỷ lệ giao trễ luôn có sự biến động mạnh theo tính chất mùa vụ, đặc biệt là tăng vọt trong các đợt cao điểm mua sắm do quá tải hệ thống logistics, sau đó giảm dần vào mùa thấp điểm. Tuy nhiên, đường biểu diễn tỷ lệ giao trễ chạy ziczac liên tục dao động rất cơ học trong biên độ cực hẹp từ 32\% đến 35\% qua các tháng từ 2020 đến 2024. Đây là mô hình "nhiễu ngẫu nhiên" (random noise) nhân tạo, được tạo ra bằng cách cộng thêm biên độ dao động nhỏ quanh giá trị trung bình cố định 33.3\%.
+    
+    \item \textbf{Quy mô nhân sự và Doanh thu theo Thành phố (Lollipop/Dot Plot):} 
+    Trục Y phân loại theo thành phố cửa hàng, trục X biểu diễn số lượng nhân viên thực tế làm việc, và độ lớn bong bóng đại diện cho tổng doanh thu đóng góp.
+    
+    \textit{Đọc vị dữ liệu:} Biểu đồ thể hiện mối tương quan thuận tuyến tính hoàn hảo giữa số lượng nhân viên và doanh thu cửa hàng: Mumbai có số lượng nhân sự đông nhất (305 người) tương ứng với bong bóng doanh thu lớn nhất (\$1.19B), trong khi Delhi có ít nhân sự nhất (205 người) tạo ra doanh thu thấp thứ hai (\$806M). Biểu hiện này chứng minh rằng trong mô hình giả lập của dữ liệu nguồn, doanh thu cửa hàng được thiết lập như một hàm số tuyến tính trực tiếp của quy mô nhân sự, phản ánh tư duy quản trị lấy lao động làm động lực tăng trưởng doanh số cốt lõi.
+\end{itemize}
