@@ -12,7 +12,7 @@
 
 Hệ thống bao gồm 36 DAX Measures được sử dụng để tính toán các độ đo nghiệp vụ, được phân chia theo từng lĩnh vực cụ thể.
 
-\begin{longtable}{|M{4cm}|M{6.5cm}|M{4.5cm}|}
+\begin{longtable}{|M{3.5cm}|M{8cm}|M{3.5cm}|}
 \hline
 \textbf{Tên Measure} & \textbf{Công thức DAX} & \textbf{Ý nghĩa} \\
 \hline
@@ -33,42 +33,42 @@ Average Order Value & \texttt{DIVIDE([Total Revenue], [Total Orders])} & Giá tr
 Average Discount & \texttt{AVERAGE('promotions'[discount])} & Tỷ lệ giảm giá trung bình \\ \hline
 
 \hline \multicolumn{3}{|c|}{\textbf{Nhóm: Orders}} \\ \hline
-Total Orders & \texttt{DISTINCTCOUNT('orders'[order\_id])} & Tổng số đơn hàng \\ \hline
+Total Orders & \texttt{DISTINCTCOUNT(} \newline \texttt{'orders'[order\_id])} & Tổng số đơn hàng \\ \hline
 Total Quantity & \texttt{SUM('order\_items'[qty])} & Tổng số lượng sản phẩm \\ \hline
-Order Item Count & \texttt{DISTINCTCOUNT('order\_items'[order\_item\_id])} & Số dòng chi tiết đơn hàng \\ \hline
+Order Item Count & \texttt{DISTINCTCOUNT(} \newline \texttt{'order\_items'[order\_item\_id])} & Số dòng chi tiết đơn hàng \\ \hline
 Items per Order & \texttt{DIVIDE([Order Item Count], [Total Orders])} & Số sản phẩm/đơn hàng \\ \hline
 
 \hline \multicolumn{3}{|c|}{\textbf{Nhóm: Customers}} \\ \hline
-Total Customers & \texttt{DISTINCTCOUNT('customers'[customer\_id])} & Tổng số khách hàng \\ \hline
+Total Customers & \texttt{DISTINCTCOUNT(} \newline \texttt{'customers'[customer\_id])} & Tổng số khách hàng \\ \hline
 Revenue per Customer & \texttt{DIVIDE([Total Revenue], [Total Customers])} & Doanh thu/khách hàng \\ \hline
 
 \hline \multicolumn{3}{|c|}{\textbf{Nhóm: Returns}} \\ \hline
-Return Count & \texttt{DISTINCTCOUNT('returns'[return\_id])} & Số đơn hoàn trả \\ \hline
-Returned Item Count & \texttt{DISTINCTCOUNT('returns'[order\_item\_id])} & Số lượng SP hoàn trả \\ \hline
+Return Count & \texttt{DISTINCTCOUNT(} \newline \texttt{'returns'[return\_id])} & Số đơn hoàn trả \\ \hline
+Returned Item Count & \texttt{DISTINCTCOUNT(} \newline \texttt{'returns'[order\_item\_id])} & Số lượng SP hoàn trả \\ \hline
 Return Rate & \texttt{DIVIDE([Returned Item Count], [Order Item Count])} & Tỷ lệ hoàn trả \\ \hline
 Refund per Return & \texttt{DIVIDE([Total Refund], [Return Count])} & Hoàn tiền trung bình \\ \hline
 
 \hline \multicolumn{3}{|c|}{\textbf{Nhóm: Shipments}} \\ \hline
-Shipment Count & \texttt{DISTINCTCOUNT('shipments'[shipment\_id])} & Tổng số lô hàng \\ \hline
-Delivered Shipments & \texttt{CALCULATE([Shipment Count], 'shipments'[status] = "delivered")} & Lô hàng đã giao \\ \hline
-Shipped Shipments & \texttt{CALCULATE([Shipment Count], 'shipments'[status] = "shipped")} & Lô hàng đang giao \\ \hline
-Late Shipments & \texttt{CALCULATE([Shipment Count], 'shipments'[status] = "late")} & Lô hàng giao trễ \\ \hline
+Shipment Count & \texttt{DISTINCTCOUNT(} \newline \texttt{'shipments'[shipment\_id])} & Tổng số lô hàng \\ \hline
+Delivered Shipments & \texttt{CALCULATE(} \newline \texttt{[Shipment Count], 'shipments'[status] = "delivered")} & Lô hàng đã giao \\ \hline
+Shipped Shipments & \texttt{CALCULATE(} \newline \texttt{[Shipment Count], 'shipments'[status] = "shipped")} & Lô hàng đang giao \\ \hline
+Late Shipments & \texttt{CALCULATE(} \newline \texttt{[Shipment Count], 'shipments'[status] = "late")} & Lô hàng giao trễ \\ \hline
 Delivered Shipment Rate & \texttt{DIVIDE([Delivered Shipments], [Shipment Count])} & Tỷ lệ giao thành công \\ \hline
 Late Shipment Rate & \texttt{DIVIDE([Late Shipments], [Shipment Count])} & Tỷ lệ giao trễ \\ \hline
 
 \hline \multicolumn{3}{|c|}{\textbf{Nhóm: Operations}} \\ \hline
-Total Stores & \texttt{DISTINCTCOUNT('stores'[store\_id])} & Tổng số cửa hàng \\ \hline
-Total Employees & \texttt{DISTINCTCOUNT('employees'[employee\_id])} & Tổng số nhân viên \\ \hline
+Total Stores & \texttt{DISTINCTCOUNT(} \newline \texttt{'stores'[store\_id])} & Tổng số cửa hàng \\ \hline
+Total Employees & \texttt{DISTINCTCOUNT(} \newline \texttt{'employees'[employee\_id])} & Tổng số nhân viên \\ \hline
 Average Salary & \texttt{AVERAGE('employees'[salary])} & Mức lương trung bình \\ \hline
-Total Products & \texttt{DISTINCTCOUNT('products'[product\_id])} & Tổng số sản phẩm \\ \hline
-Total Categories & \texttt{DISTINCTCOUNT('categories'[category\_id])} & Số lượng danh mục \\ \hline
-Total Suppliers & \texttt{DISTINCTCOUNT('suppliers'[supplier\_id])} & Tổng số nhà cung cấp \\ \hline
+Total Products & \texttt{DISTINCTCOUNT(} \newline \texttt{'products'[product\_id])} & Tổng số sản phẩm \\ \hline
+Total Categories & \texttt{DISTINCTCOUNT(} \newline \texttt{'categories'[category\_id])} & Số lượng danh mục \\ \hline
+Total Suppliers & \texttt{DISTINCTCOUNT(} \newline \texttt{'suppliers'[supplier\_id])} & Tổng số nhà cung cấp \\ \hline
 
 \hline \multicolumn{3}{|c|}{\textbf{Nhóm: Time Intelligence}} \\ \hline
-Revenue Previous Month & \texttt{CALCULATE([Total Revenue], DATEADD('Date'[Date], -1, MONTH))} & Doanh thu tháng trước \\ \hline
+Revenue Previous Month & \texttt{CALCULATE(} \newline \texttt{[Total Revenue], DATEADD('Date'[Date], -1, MONTH))} & Doanh thu tháng trước \\ \hline
 Revenue MoM Change & \texttt{[Total Revenue] - [Revenue Previous Month]} & Tăng trưởng MoM \\ \hline
 Revenue MoM \% & \texttt{DIVIDE([Revenue MoM Change], [Revenue Previous Month])} & Tỷ lệ MoM \\ \hline
-Revenue Previous Year & \texttt{CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Date'[Date]))} & Doanh thu năm trước \\ \hline
+Revenue Previous Year & \texttt{CALCULATE(} \newline \texttt{[Total Revenue], SAMEPERIODLASTYEAR('Date'[Date]))} & Doanh thu năm trước \\ \hline
 Revenue YoY Change & \texttt{[Total Revenue] - [Revenue Previous Year]} & Tăng trưởng YoY \\ \hline
 Revenue YoY \% & \texttt{DIVIDE([Revenue YoY Change], [Revenue Previous Year])} & Tỷ lệ YoY \\ \hline
 Revenue YTD & \texttt{TOTALYTD([Total Revenue], 'Date'[Date])} & Doanh thu lũy kế \\ \hline
