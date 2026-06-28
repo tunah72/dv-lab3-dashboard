@@ -4,29 +4,29 @@
 \section{Dataset và quy trình xử lý dữ liệu}
 
 \subsection{Giới thiệu nguồn dữ liệu và Đặc điểm}
-Đồ án sử dụng bộ dữ liệu \textbf{Retail Data Warehouse} được khai thác từ nền tảng Kaggle. Đây là một cơ sở dữ liệu quan hệ (Relational Database) quy mô lớn với hơn 1 triệu dòng, bao gồm 12 bảng mô phỏng chi tiết nghiệp vụ bán lẻ. Các bảng này được chia thành hai nhóm chính:
+Đồ án sử dụng bộ dữ liệu \textbf{Retail Data Warehouse} được khai thác từ nền tảng Kaggle \cite{kaggle_retail}. Đây là một cơ sở dữ liệu quan hệ (Relational Database) quy mô lớn với hơn 1 triệu dòng, bao gồm 12 bảng mô phỏng chi tiết nghiệp vụ bán lẻ. Các bảng này được chia thành hai nhóm chính:
 \begin{itemize}
     \item \textbf{Nhóm bảng Dimension (Danh mục):} Chứa thông tin bổ sung ngữ cảnh phân tích như \texttt{customers} (khách hàng), \texttt{products} (sản phẩm), \texttt{categories} (danh mục), \texttt{stores} (cửa hàng), \texttt{suppliers} (nhà cung cấp) và \texttt{promotions} (khuyến mãi).
     \item \textbf{Nhóm bảng Fact (Giao dịch):} Ghi nhận các sự kiện phát sinh theo thời gian thực như \texttt{orders} (đơn hàng), \texttt{order\_items} (chi tiết sản phẩm trong đơn), \texttt{payments} (thanh toán), \texttt{shipments} (vận chuyển) và \texttt{returns} (hoàn trả).
 \end{itemize}
 
-\textbf{Đánh giá chất lượng dữ liệu (Critical Thinking):} Qua quá trình tiếp cận, nhóm nhận thấy đây là bộ dữ liệu tổng hợp (synthetic dataset) được tác giả tạo ra nhằm mục đích tối ưu cho việc thực hành truy vấn SQL và thiết kế kho dữ liệu. Đặc điểm của dữ liệu này là các biến có sự phân bố đều đến mức cực đoan và tương quan thuận hoàn hảo. Nhóm ghi nhận thẳng thắn đặc điểm này vào báo cáo: các \textit{insight} phân tích ở phần sau sẽ chủ yếu mang tính chất \textbf{minh họa cho logic giải quyết vấn đề, tư duy thiết kế Dashboard và kỹ năng trực quan hóa}, thay vì đi tìm những quy luật ẩn giấu phức tạp của một doanh nghiệp thực tế.
+\textbf{Đánh giá chất lượng dữ liệu (Critical Thinking):} Qua quá trình tiếp cận, nhóm nhận thấy đây là bộ dữ liệu tổng hợp (synthetic dataset) được tác giả tạo ra nhằm mục đích tối ưu cho việc thực hành truy vấn SQL và thiết kế kho dữ liệu. Đặc điểm của dữ liệu này là các biến có sự phân bố đều đáng chú ý và tương quan thuận hoàn hảo. Nhóm ghi nhận thẳng thắn đặc điểm này vào báo cáo: các \textit{insight} phân tích ở phần sau sẽ chủ yếu mang tính chất \textbf{minh họa cho logic giải quyết vấn đề, tư duy thiết kế Dashboard và kỹ năng trực quan hóa}, thay vì đi tìm những quy luật ẩn giấu phức tạp của một doanh nghiệp thực tế.
 
 \subsection{Khám phá (EDA) và Tiền xử lý dữ liệu (Data Cleaning)}
-Để đảm bảo tính toàn vẹn của dữ liệu trước khi đưa vào Power BI, nhóm đã lập trình một luồng xử lý tự động bằng ngôn ngữ \texttt{Python (thư viện pandas)}.
+Để đảm bảo tính toàn vẹn của dữ liệu trước khi đưa vào Power BI, nhóm đã lập trình một luồng xử lý tự động bằng Python kết hợp thư viện pandas.
 \begin{itemize}
-    \item \textbf{Exploratory Data Analysis (EDA):} Dựa trên Báo cáo chất lượng dữ liệu (\textit{Data Quality Report}), tập dữ liệu cho thấy độ sạch đáng kinh ngạc với 0\% giá trị rỗng (Missing Values) trên tất cả 12 bảng. Không phát hiện bất kỳ bản ghi nào vi phạm tính vẹn toàn tham chiếu (Orphan Foreign Keys) giữa các bảng con và bảng cha.
+    \item \textbf{Exploratory Data Analysis (EDA):} Dựa trên Báo cáo chất lượng dữ liệu (\textit{Data Quality Report}), tập dữ liệu cho thấy độ sạch cao với 0\% giá trị rỗng (Missing Values) trên tất cả 12 bảng. Không phát hiện bất kỳ bản ghi nào vi phạm tính vẹn toàn tham chiếu (Orphan Foreign Keys) giữa các bảng con và bảng cha.
     \item \textbf{Tiền xử lý (Preprocessing):} Mặc dù không có giá trị rỗng, nhóm vẫn thực hiện chuẩn hóa:
     \begin{itemize}
         \item Đồng bộ toàn bộ các trường định danh (\texttt{\_id}) về kiểu chuỗi (String) để tránh Power BI tự động tổng hợp (Summarize).
         \item Chuyển đổi chuẩn hóa định dạng thời gian cho các cột \texttt{date} sang kiểu \texttt{datetime}.
         \item Xử lý bất thường (Anomalies): Lọc và loại bỏ một số dòng dữ liệu nhiễu (sinh ra do lỗi của script tạo dữ liệu) trong bảng \texttt{order\_items} có số lượng (\texttt{qty} $\le$ 0) hoặc đơn giá (\texttt{price} $\le$ 0). 
-        \item Xuất bản dữ liệu sạch: Toàn bộ dữ liệu sau khi được xử lý hoàn tất bằng Python được xuất thành các tệp tin CSV mới lưu trữ tại thư mục \texttt{data/cleaned/}.
+        \item Xuất dữ liệu sạch: Toàn bộ dữ liệu sau khi được xử lý hoàn tất bằng Python được xuất thành các tệp tin CSV mới để sử dụng làm dữ liệu sạch đầu vào cho Power BI.
     \end{itemize}
 \end{itemize}
 
 \subsection{Ứng dụng Học máy: Phân cụm Khách hàng (K-Means RFM)}
-Với mục tiêu gia tăng chiều sâu cho luồng phân tích khách hàng (Customer Analytics) và đáp ứng tiêu chí ứng dụng thuật toán máy học của đồ án, nhóm đã kết hợp mô hình RFM với thuật toán \textbf{K-Means Clustering} (\texttt{scikit-learn}).
+Với mục tiêu gia tăng chiều sâu cho luồng phân tích khách hàng (Customer Analytics) và đáp ứng tiêu chí ứng dụng thuật toán máy học của đồ án, nhóm đã kết hợp mô hình RFM \cite{hughes2007} với thuật toán \textbf{K-Means Clustering} \cite{macqueen1967} (triển khai bằng scikit-learn \cite{sklearn_kmeans}).
 
 Mỗi khách hàng được đánh giá qua 3 chiều dữ liệu, tính toán từ bảng \texttt{orders} và \texttt{payments}:
 \begin{itemize}
@@ -37,11 +37,27 @@ Mỗi khách hàng được đánh giá qua 3 chiều dữ liệu, tính toán t
 
 Dữ liệu RFM sau đó được đưa qua bộ chuẩn hóa \texttt{StandardScaler} để loại bỏ sự chênh lệch về đơn vị đo lường, sau đó huấn luyện với thuật toán K-Means ($K=4$). Tập khách hàng được chia thành 4 phân khúc (Segment) rõ rệt: \textit{VIP, Loyal, New, At Risk}. Cột \texttt{Segment} này được nối (merge) trở lại vào bảng \texttt{customers} để đóng vai trò là một thuộc tính lọc quan trọng trên Dashboard.
 
+\begin{figure}[htbp]
+    \centering
+    % TODO: Chèn biểu đồ Elbow hoặc Silhouette Score
+    \includegraphics[width=0.6\textwidth]{kmeans-elbow.png}
+    \caption{Phương pháp Elbow xác định số cụm tối ưu $K=4$}
+    \label{fig:kmeans_elbow}
+\end{figure}
+
 \subsection{Xây dựng Mô hình dữ liệu (Data Modeling) trong Power BI}
-Tập dữ liệu sạch (\texttt{data/cleaned/}) được kết nối vào Power BI Desktop. Nhóm đã thiết kế một mô hình dữ liệu chuẩn \textbf{Star Schema / Snowflake Schema} tuân thủ chặt chẽ các nguyên tắc tối ưu hiệu suất:
+Tập dữ liệu sạch được kết nối vào Power BI Desktop. Nhóm đã thiết kế một mô hình dữ liệu chuẩn \textbf{Star Schema / Snowflake Schema} \cite{kimball2013} tuân thủ chặt các nguyên tắc tối ưu hiệu suất:
 
 \begin{itemize}
     \item \textbf{Quản lý Relationships:} 100\% các mối quan hệ được thiết lập ở trạng thái Active, tuân thủ Cardinality là \textit{Many-to-One} (từ các bảng Fact trỏ về các bảng Dimension). Chiều lọc dữ liệu (Cross-filter direction) được thiết lập là \textit{Single} để tránh hiện tượng lọc nhập nhằng (Ambiguous Relationship).
-    \item \textbf{Date Table \& Time Intelligence:} Thay vì sử dụng các trường ngày tháng thô (như \texttt{order\_date}), nhóm tạo ra một bảng \texttt{Date} bằng hàm DAX (Data Analysis Expressions) và đánh dấu là \textit{Date Table}. Điều này là bắt buộc để sử dụng các hàm Time Intelligence tính toán tăng trưởng MoM (Tháng qua Tháng) và YoY (Năm qua Năm).
-    \item \textbf{Tổ chức DAX Measures Tập trung:} Mọi phép tính toán (như Doanh thu, Tỷ lệ hoàn trả, Số lượng đơn hàng) đều được lập trình bằng DAX (tổng cộng 36 measures) và lưu trữ tập trung vào một bảng ảo (bảng \texttt{\_Measures}). Các measures này được phân loại vào các thư mục hiển thị (\textit{Revenue, Orders, Returns, Shipments,...}). Đồng thời, toàn bộ các cột ID kỹ thuật và các cột số học gốc đều bị ẩn (Hide in Report View) để ép buộc người thiết kế phải sử dụng Measures thay vì các Implicit Measures (tự động tính tổng) tiềm ẩn rủi ro sai sót.
+    \item \textbf{Date Table \& Time Intelligence:} Thay vì sử dụng các trường ngày tháng thô (như \texttt{order\_date}), nhóm tạo ra một bảng \texttt{Date} bằng hàm DAX (Data Analysis Expressions) \cite{dax_reference} và đánh dấu là \textit{Date Table}. Điều này là bắt buộc để sử dụng các hàm Time Intelligence tính toán tăng trưởng MoM (Tháng qua Tháng) và YoY (Năm qua Năm).
+    \item \textbf{Tổ chức DAX Measures Tập trung:} Mọi phép tính toán (như Doanh thu, Tỷ lệ hoàn trả, Số lượng đơn hàng) đều được lập trình bằng DAX (tổng cộng 36 measures) và lưu trữ tập trung vào một bảng ảo (bảng \texttt{\_Measures}). Các measures này được phân loại vào các thư mục hiển thị (\textit{Revenue, Orders, Returns, Shipments,...}). Đồng thời, toàn bộ các cột ID kỹ thuật và các cột số học gốc đều bị ẩn (Hide in Report View) để đảm bảo người thiết kế sử dụng Measures thay vì các Implicit Measures (tự động tính tổng) có thể gây sai sót.
 \end{itemize}
+
+\begin{figure}[H]
+    \centering
+    % TODO: Chèn screenshot Data Model từ Power BI Desktop (Model View)
+    \includegraphics[width=0.9\textwidth]{data-model.png}
+    \caption{Sơ đồ mối quan hệ giữa các bảng trong mô hình dữ liệu (Star Schema)}
+    \label{fig:data_model}
+\end{figure}
