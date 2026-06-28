@@ -34,7 +34,7 @@ Nhóm đã xây dựng mô hình theo cấu trúc **Star Schema** chuẩn mực 
 
 **[Trở lại màn hình Report View, thao tác click chuyển tab trên thanh Sidebar]**
 
-"Về mặt thiết kế tổng quan, nhóm thống nhất sử dụng một **giao diện Dark Theme** tối giản nhưng hiện đại để làm nổi bật dữ liệu số. 
+"Về mặt thiết kế tổng quan, nhóm thống nhất sử dụng một giao diện tối giản nhưng hiện đại để làm nổi bật dữ liệu số. 
 
 Điểm nhấn về tính năng tương tác (Features) của Dashboard bao gồm:
 * **Thanh điều hướng (Sidebar Navigation):** Sử dụng tính năng Bookmarks và Buttons, người dùng có thể dễ dàng chuyển đổi mượt mà giữa 5 phân hệ phân tích: Overview, Sales Trend, Customers, Products, và Operations.
@@ -50,7 +50,7 @@ Nhóm đã xây dựng mô hình theo cấu trúc **Star Schema** chuẩn mực 
 "Bây giờ, mình xin phép đi sâu vào phân hệ phân tích đầu tiên do mình đảm nhiệm: **Sales Trend - Xu hướng Doanh thu**."
 
 **[Chỉ vào dãy KPI Cards phía trên]**
-"Nhìn vào dải KPI đầu trang, chúng ta có thể nắm bắt ngay nhịp đập tài chính của doanh nghiệp: Tổng doanh thu, Doanh thu ròng (sau khi trừ hoàn trả), Giá trị trung bình mỗi đơn (AOV) và đặc biệt là Tăng trưởng so với cùng kỳ năm trước (YoY). Những con số này đóng vai trò như 'mỏ neo' để đánh giá xem doanh nghiệp đang phát triển hay đi lùi."
+"Nhìn vào dải KPI đầu trang, chúng ta có thể nắm bắt ngay nhịp đập tài chính của doanh nghiệp: Tổng doanh thu đạt **3.83 Tỷ đô**, Doanh thu ròng (sau khi trừ hoàn trả) là **3.75 Tỷ đô**, Giá trị trung bình mỗi đơn (AOV) ở mức **$12,759.15** và đặc biệt là Tăng trưởng so với cùng kỳ năm trước (YoY) đạt con số ấn tượng **+29.8%**. Những con số này đóng vai trò như 'mỏ neo' để đánh giá xem doanh nghiệp đang phát triển hay đi lùi."
 
 **[Chỉ vào biểu đồ Line & Clustered Column Chart (Doanh thu & Đơn hàng)]**
 "Chuyển sang biểu đồ đường và cột kết hợp này. Ở đây, mình dùng cột để biểu diễn Doanh thu và đường để biểu diễn Số lượng đơn hàng theo thời gian. 
