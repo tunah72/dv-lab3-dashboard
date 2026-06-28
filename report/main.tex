@@ -37,11 +37,20 @@
 
 % Define course name, report name and report title.
 \newcommand{\coursename}{Trực quan hóa Dữ liệu}
-\newcommand{\reportname}{}
-\newcommand{\reporttitle}{BÁO CÁO ĐỒ ÁN THỰC HÀNH 03}
+\newcommand{\reporttitle}{BÁO CÁO ĐỒ ÁN THỰC HÀNH \\ LAB 03}
+\newcommand{\reportname}{Phân tích dữ liệu bán lẻ bằng Power BI \\ (Retail Data Warehouse)}
 
-\newcommand{\studentname}{23120199 - Lê Xuân Trí \\ 23120208 - Dương Tuấn Anh \\ 23122038 - Nguyễn Trần Trung Kiên \\ 23122045 - Lê Đức Phúc}
-\newcommand{\teachername}{Thầy Bùi Tiến Lên \\ Thầy Trần Huy Bân \\ Thầy Võ Nhật Tân}
+\newcommand{\studentname}{
+    23120199 - Lê Xuân Trí \\ 
+    23120208 - Dương Tuấn Anh \\ 
+    23122038 - Nguyễn Trần Trung Kiên \\ 
+    23122045 - Lê Đức Phúc
+}
+\newcommand{\teachername}{
+    Thầy Bùi Tiến Lên \\ 
+    Thầy Trần Huy Bân \\ 
+    Thầy Võ Nhật Tân
+}
 
 % Header
 \lhead{\reporttitle}
@@ -61,14 +70,23 @@
 \tableofcontents
 \pagebreak
 \listoftables
-\pagebreak
 \listoffigures
-\pagebreak
+
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-% ============ NỘI DUNG BÁO CÁO ============
+
+
+\input{content/group_info.tex}
+
+\input{content/overview.tex}
+
+\input{content/data_pipeline.tex}
+
+\input{content/analysis.tex}
+
+\input{content/dicussion.tex}
 
 
 % ============ THAM KHẢO & PHỤ LỤC ============

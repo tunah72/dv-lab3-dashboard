@@ -1,13 +1,79 @@
 %================================================
-% 2. TỔNG QUAN BÀI TOÁN
+% 2. TÌM HIỂU CÔNG CỤ POWER BI
 %================================================
-\section{Tổng quan bài toán}
+\section{Tìm hiểu công cụ Power BI}
 
-\subsection{Bối cảnh dữ liệu và phạm vi}
+\subsection{Giới thiệu tổng quan}
+Power BI là một nền tảng phân tích và trực quan hóa dữ liệu kinh doanh (Business Intelligence) do Microsoft phát triển. Công cụ này cho phép người dùng kết nối liền mạch với nhiều nguồn dữ liệu khác nhau, thực hiện làm sạch, mô hình hóa và xây dựng các báo cáo (reports) cũng như bảng điều khiển (dashboards) mang tính tương tác cao, giúp doanh nghiệp dễ dàng rút ra insight và ra quyết định dựa trên dữ liệu (data-driven).
 
+\subsection{Các thành phần chính}
+Hệ sinh thái Power BI bao gồm ba thành phần cốt lõi:
+\begin{itemize}
+    \item \textbf{Power BI Desktop:} Ứng dụng máy tính miễn phí trên Windows, đóng vai trò là công cụ chính để kết nối dữ liệu, viết DAX, mô hình hóa (Data Modeling) và thiết kế báo cáo.
+    \item \textbf{Power BI Service:} Dịch vụ điện toán đám mây (SaaS) giúp người dùng xuất bản (publish) báo cáo, thiết kế các Dashboard tổng hợp, thiết lập quyền truy cập và chia sẻ nội dung cho người khác.
+    \item \textbf{Power BI Mobile \& Report Server:} Ứng dụng hỗ trợ xem báo cáo trên thiết bị di động và giải pháp triển khai máy chủ cục bộ (on-premises) cho các doanh nghiệp yêu cầu bảo mật cao.
+\end{itemize}
 
+\subsection{Các chức năng cơ bản}
+\begin{itemize}
+    \item \textbf{Import dữ liệu:} Cung cấp hàng trăm trình kết nối (Connectors) để trích xuất dữ liệu từ Flat files (CSV, Excel), Databases (SQL, Oracle), cho đến các dịch vụ Web và Cloud.
+    \item \textbf{Data Transformation (Power Query):} Công cụ ETL (Extract, Transform, Load) tích hợp giúp dọn dẹp (clean), chuẩn hóa kiểu dữ liệu, gộp bảng (merge/append) một cách tự động thông qua giao diện trực quan hoặc ngôn ngữ M.
+    \item \textbf{Data Modeling:} Xây dựng mô hình dữ liệu (như Star Schema) bằng cách thiết lập các mối quan hệ (Relationships) giữa các bảng (Many-to-One, One-to-One) và sử dụng ngôn ngữ DAX (Data Analysis Expressions) để tính toán các độ đo (Measures) phức tạp.
+    \item \textbf{Visualization \& Dashboard:} Cung cấp thư viện biểu đồ phong phú để kéo-thả và xây dựng báo cáo. Trên Power BI Service, người dùng có thể ghim (pin) các biểu đồ quan trọng từ nhiều báo cáo khác nhau vào chung một Dashboard.
+\end{itemize}
 
-\subsection{Các hướng phân tích}
+\subsection{Minh họa chức năng trên Dataset mẫu}
+Để minh họa các chức năng cơ bản mà không sử dụng dataset chính của đồ án, nhóm sử dụng bộ dữ liệu mẫu \textit{Financial Sample} (tích hợp sẵn trong Power BI Desktop). Quy trình thực hiện như sau:
 
+\begin{enumerate}
+    \item \textbf{Import:} Tại tab \textit{Home}, nhóm chọn chức năng lấy dữ liệu mẫu và tiến hành nạp bảng dữ liệu \texttt{Financials} từ tệp Excel vào bộ nhớ Power BI Desktop.
+    \item \textbf{Power Query:} Truy cập trình biên tập Power Query để kiểm tra chất lượng dữ liệu. Nhóm tiến hành đổi định dạng cột ngày tháng sang kiểu dữ liệu \textit{Date}, đồng thời thực hiện loại bỏ các dòng dữ liệu không hợp lệ.
+    \item \textbf{Data Modeling:} Nhóm thiết lập một trường dữ liệu tính toán mới (Measure) bằng ngôn ngữ DAX để tính toán doanh thu thuần thực tế sau chiết khấu: \newline
+    \texttt{Net Sales = SUM(Financials[Sales]) - SUM(Financials[Discounts])} \newline
+    Sau khi lưu, Measure này hiển thị trong danh sách trường dữ liệu kèm biểu tượng máy tính bỏ túi đặc trưng nằm ngay dưới bảng \texttt{Financial Sample} (như thể hiện ở vùng \textit{Data} ở góc phải màn hình thiết kế).
+    \item \textbf{Visualization:} Nhóm xây dựng biểu đồ thanh nằm ngang (\textit{Clustered Bar Chart}) để so sánh doanh thu thuần của từng quốc gia (\texttt{Net Sales by Country}). Đồng thời, một bộ lọc \textit{Slicer} theo phân khúc khách hàng (\texttt{Segment}) được thêm vào trang báo cáo để tăng tính tương tác. 
+\end{enumerate}
 
+Kết quả trực quan hóa tương tác được thể hiện chi tiết ở Hình \ref{fig:powerbi_sample}. Khi người dùng chọn lọc dữ liệu theo phân khúc khách hàng chính phủ (\textit{Government}) trên bộ lọc Slicer, biểu đồ thanh ngang tự động tính toán lại và chỉ hiển thị doanh thu thuần tương ứng của phân khúc này theo từng quốc gia. Trong phân khúc Government, quốc gia Pháp (\textit{France}) đang dẫn đầu về doanh thu thuần (đạt xấp xỉ 11 triệu USD), tiếp sau lần lượt là Đức (khoảng 10,9 triệu USD), Canada, Mexico và thấp nhất là Hoa Kỳ với doanh thu đạt gần 7,6 triệu USD.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{powerbi-sample.png}
+    \caption{Minh họa trực quan hóa trên dữ liệu Financial Sample}
+    \label{fig:powerbi_sample}
+\end{figure}
+
+%================================================
+% 3. GIỚI THIỆU BÀI TOÁN PHÂN TÍCH
+%================================================
+\section{Giới thiệu bài toán phân tích}
+
+\subsection{Tổng quan bài toán}
+Đồ án sử dụng bộ dữ liệu \textbf{Retail Data Warehouse}, mô phỏng hoạt động của một doanh nghiệp bán lẻ đa chi nhánh quy mô lớn. Bộ dữ liệu chứa hơn 1 triệu dòng với 12 bảng quan hệ chặt chẽ với nhau, bao phủ toàn bộ vòng đời kinh doanh: từ chuỗi cung ứng (nhà cung cấp, sản phẩm), bán hàng (đơn hàng, khuyến mãi) cho đến hậu cần (vận chuyển, thanh toán, hoàn trả). 
+
+Bài toán đặt ra là làm thế nào để khai thác khối lượng dữ liệu thô khổng lồ này, kết nối các luồng thông tin rời rạc thành một bức tranh toàn cảnh, từ đó giúp ban lãnh đạo doanh nghiệp thấu hiểu tình hình kinh doanh, phát hiện rủi ro và ra quyết định tối ưu hóa vận hành.
+
+\subsection{Mục tiêu phân tích chung}
+Mục tiêu cốt lõi của nhóm là áp dụng \textbf{Power BI} để xây dựng một Hệ thống Dashboard thông minh và toàn diện. Cụ thể:
+\begin{itemize}
+    \item Chuyển đổi và chuẩn hóa dữ liệu, xây dựng một mô hình dữ liệu (Data Model) chuẩn tối ưu cho phân tích.
+    \item Trực quan hóa các chỉ số hiệu suất trọng yếu (KPIs) liên quan đến dòng tiền, sản phẩm, khách hàng và chuỗi cung ứng.
+    \item Tìm ra các \textit{insight} có giá trị thực tiễn (ví dụ: nguyên nhân gây tỷ lệ hoàn trả cao, phân khúc khách hàng cốt lõi, điểm nghẽn trong vận chuyển).
+\end{itemize}
+
+\subsection{Mục tiêu phân tích cụ thể của từng thành viên}
+Để giải quyết toàn diện bài toán, nhóm đã chia nhỏ Dashboard thành 4 luồng phân tích chuyên sâu, tương ứng với 4 thành viên:
+
+\begin{enumerate}
+    \item \textbf{Dương Tuấn Anh - Phân tích Xu hướng Doanh thu (Sales Trend):} 
+    Tập trung vào khía cạnh tài chính. Đánh giá sự tăng trưởng doanh thu, số lượng đơn hàng theo thời gian (MoM, YoY) và phân tích sự tác động của các chiến dịch giảm giá (discount) đến hành vi mua sắm.
+    
+    \item \textbf{Lê Xuân Trí - Phân tích Khách hàng (Customers):}
+    Sử dụng thuật toán học máy K-Means để phân cụm khách hàng (mô hình RFM). Từ đó, đánh giá giá trị dòng đời khách hàng, xác định các nhóm khách hàng mang lại lợi nhuận cao nhất và phân bố địa lý của họ.
+    
+    \item \textbf{Nguyễn Trần Trung Kiên - Phân tích Sản phẩm (Products):}
+    Đi sâu vào hiệu suất bán hàng của từng danh mục và nguồn cung. Đặc biệt, mục tiêu trọng tâm là theo dõi, cảnh báo rủi ro về tỷ lệ hoàn trả (Return Rate) để đánh giá chất lượng sản phẩm.
+    
+    \item \textbf{Lê Đức Phúc - Phân tích Vận hành \& Tổng quan (Operations \& Overview):}
+    Đánh giá năng lực của hệ thống chi nhánh và rủi ro logistics. Phân tích chi tiết tình trạng giao hàng (Delivered, Shipped, Late) kết hợp với năng suất nhân sự. Cuối cùng, tổng hợp các KPI của cả 3 nhánh trên vào một màn hình Overview dành cho cấp C-Level.
+\end{enumerate}
